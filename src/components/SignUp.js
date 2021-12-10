@@ -63,15 +63,16 @@ export default function SignUp() {
                       required
                     />
                   </Form.Group>
-                  <Button disabled={loading} className="w-100" type="submit">
+                  <Button disabled={loading} className="w-100 mt-2" type="submit">
                     Sign Up
                   </Button>
                 </Form>
-              </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
+                <div className="w-100 text-center mt-2">
               Already have an account?<Link to="/login">Log In</Link>
             </div>
+              </Card.Body>
+            </Card>
+            
           </div>
           <div className="col-md-6 rounded ">
             <Imageside />

@@ -56,10 +56,15 @@ export default function Login() {
                         required
                       />
                     </Form.Group>
-                    <Button disabled={loading} className="w-100" type="submit">
+                    <Button disabled={loading} className="w-100 mt-2" type="submit">
                       Log In
                     </Button>
-                    <div className="w-100 text-center mt-3">
+                    <Link to="/login">
+                      <Button variant="outline-primary" className="w-100 mt-3">
+                        Connect with MetaMask 🦊 
+                      </Button>
+                    </Link>
+                    <div className="w-100 text-center mt-2">
                       <Link to="/password-reset"> Reset Password</Link>
                     </div>
                   </Form>

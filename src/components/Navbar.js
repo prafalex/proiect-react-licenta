@@ -3,6 +3,7 @@ import {  useAuth } from "../contexts/AuthContext";
 import "react-bootstrap";
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Buttonmeta from './MetaConnect' 
 
 
 export default function NavBar() {
@@ -29,7 +30,10 @@ export default function NavBar() {
                       {currentUser==null && <Link to="/login">
                         <Button>Login</Button>{" "}
                       </Link>}
-                      {currentUser!=null && <Link to="/dashboard"><Button>Dashboard</Button> </Link>}
+                      {currentUser!=null && <> 
+                      <Link to="/dashboard"><Button>Dashboard</Button> </Link>
+                      <Buttonmeta/>
+                      </>}
                    
                   </div>
                 </Nav>

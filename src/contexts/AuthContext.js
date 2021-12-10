@@ -32,15 +32,12 @@ export  function AuthProvider({children}) {
     }
 
     function uploadImage(image){
-        
         return uploadBytes(ref(storage,`/images/${auth.currentUser.email}`),image)
         
     }
     function getImage(){
-
          getDownloadURL(ref(storage,`/images/${auth.currentUser.email}`)).then( url=>{ setURL(url)})
          return url
-         
          
     }
     function emailUpdate(email){
