@@ -6,10 +6,7 @@ export default function Home() {
         <header>
         <NavBar/>
         </header>
-        <h2>TEST 1</h2> 
         </>
-            
-            
         
     )
 }
