@@ -12,13 +12,13 @@ export const connectMetam= async() =>{
         } catch(error){
             return{
             address:"",
-            status:" " + error.message,
+            status:" Connecting error " + error.message,
         };
     }
     }else { 
         return {
             address:"",
-            status: (<p>Please install metamask</p>),
+            status: (<p>Please install Metamask</p>),
         };
     }
 };

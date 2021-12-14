@@ -6,6 +6,7 @@ export default function Update() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const [errorlogin,setEL]=useState(false)
   const [image,setImage]=useState("");
   const { currentUser, passUpdate, emailUpdate ,uploadImage} = useAuth();
   const [error, setError] = useState("");
@@ -44,7 +45,10 @@ export default function Update() {
       .then(() => {
         navigate("/dashboard");
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error.message)
+        if(error.message=== "Firebase: This operation is sensitive and requires recent authentication. Log in again before retrying this request. (auth/requires-recent-login).")
+        {setEL(true)}  
         setError("Update profile failed");
       })
       .finally(() => {
@@ -65,6 +69,10 @@ export default function Update() {
             <Card.Body>
               <h2 className="text-center mb-4">Profile Updating</h2>
               {error && <Alert variant="danger">{error}</Alert>}
+              {errorlogin && <><Alert variant="danger">Please Log In again ! </Alert>
+              <Link to="/relogin"><Button className="w-100 mb-2">Log In</Button> </Link>
+              
+              </> }
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>

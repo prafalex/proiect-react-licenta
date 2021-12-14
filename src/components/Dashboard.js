@@ -7,7 +7,6 @@ export default function Dashboard() {
   const [error, setError] = useState('')
   const { currentUser, logout, getImage } = useAuth()
   const navigate = useNavigate()
-
   async function handleLogout() {
     setError('')
 

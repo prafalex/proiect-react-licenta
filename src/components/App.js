@@ -9,6 +9,7 @@ import ResetPassword from "./ResetPassword"
 import Home from "./Home"
 import Update from "./Update"
 import back from "./back.jpg"
+import Relogin from "./ReLogin"
 
 //import Web3 from "web3"
 
@@ -39,6 +40,9 @@ function App() {
         <Router>
           <AuthProvider>
             <Routes>
+            <Route path="/relogin" element={
+                <PrivateRoute> <Relogin />  </PrivateRoute>
+              } />
             <Route path="/" exact element={<Home/>} />
             <Route path="/dashboard" element={
                 <PrivateRoute> <Dashboard />  </PrivateRoute>

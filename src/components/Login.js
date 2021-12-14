@@ -59,11 +59,6 @@ export default function Login() {
                     <Button disabled={loading} className="w-100 mt-2" type="submit">
                       Log In
                     </Button>
-                    <Link to="/login">
-                      <Button variant="outline-primary" className="w-100 mt-3">
-                        Connect with MetaMask 🦊 
-                      </Button>
-                    </Link>
                     <div className="w-100 text-center mt-2">
                       <Link to="/password-reset"> Reset Password</Link>
                     </div>
@@ -74,7 +69,7 @@ export default function Login() {
                 </Card.Body>
               </Card>
             </div>
-            <div class="col-md-6 rounded ">
+            <div className="col-md-6 rounded ">
               <Imageside />
             </div>
           </div>

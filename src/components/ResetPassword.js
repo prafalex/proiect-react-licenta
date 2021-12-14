@@ -50,12 +50,12 @@ export default function ResetPassword() {
                   <div className="w-100 text-center mt-3">
                     <Link to="/login">Back to Log In</Link>
                   </div>
-                </Form>
-              </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
+                </Form><div className="w-100 text-center mt-2">
               Need an account ? <Link to="/signup">Sign Up</Link>
             </div>
+              </Card.Body>
+            </Card>
+            
           </div>
           <div className="col-md-6 rounded ">
             <Imageside />
