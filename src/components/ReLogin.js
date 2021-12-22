@@ -67,7 +67,10 @@ export default function Login() {
                     >
                       Log In
                     </Button>
+                    <Link to="/"className="btn btn-outline-success mt-2 w-100" >Back to Home
+ </Link>
                     <div className="w-100 text-center mt-2">
+                      
                       <Link to="/password-reset"> Reset Password</Link>
                     </div>
                   </Form>

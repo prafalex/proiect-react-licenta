@@ -12,7 +12,7 @@ export default function Dashboard() {
 
     try {
       await logout()
-      navigate('/login')
+      navigate('/')
     } catch (error) {
       console.log(error)
       setError('Failed to Log Out')
@@ -53,6 +53,8 @@ export default function Dashboard() {
                 Update Profile{' '}
               </Link>
               <div className="mt-2 text-center">
+                <Link to="/"className="btn btn-outline-primary mx-2" >Back to Home
+ </Link>
                 <Button variant="outline-danger" onClick={handleLogout}>
                   Log Out
                 </Button>

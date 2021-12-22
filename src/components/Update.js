@@ -11,7 +11,6 @@ export default function Update() {
   const { currentUser, passUpdate, emailUpdate ,uploadImage} = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
   
   
@@ -55,7 +54,6 @@ export default function Update() {
         setLoading(false);
       });
   }
-
   return (
     <>
       <div
@@ -118,4 +116,6 @@ export default function Update() {
       </div>
     </>
   );
+  
 }
+export default errorlogin
