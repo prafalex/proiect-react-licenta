@@ -1,20 +1,19 @@
 import React from "react"
 //import { Container } from "react-bootstrap";
+import {BrowserRouter as Router,Routes,Route ,Navigate} from "react-router-dom" 
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import SignUp from "./SignUp";
-import {BrowserRouter as Router,Routes,Route ,Navigate} from "react-router-dom" 
 import Dashboard from "./Dashboard"
 import Login from "./Login"
 import ResetPassword from "./ResetPassword"
 import Home from "./Home"
 import Update from "./Update"
-import back from "./back.jpg"
 import Relogin from "./ReLogin"
-
+import back from "./utilities/back.jpg"
+import NotFound from "./NotFound"
 //import Web3 from "web3"
 
-
-var sectionStyle = {
+var backGround = {
   backgroundImage: `url(${back})`
 }
 
@@ -36,10 +35,11 @@ function App() {
 
   return (
     
-    <div style={sectionStyle} className="vh-100"> 
+    <div style={backGround} className="vh-100"> 
         <Router>
           <AuthProvider>
             <Routes>
+            <Route path="*" element={<NotFound/>} />
             <Route path="/relogin" element={
                 <PrivateRoute> <Relogin />  </PrivateRoute>
               } />

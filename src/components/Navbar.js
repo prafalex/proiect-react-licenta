@@ -8,17 +8,16 @@ import Buttonmeta from './MetaConnect'
 
 export default function NavBar() {
     const {currentUser}=useAuth()
-    console.log(currentUser)
     return (
       <>
-        <Container>
+        <Container className="">
           <Navbar bg="light" expand="lg">
             <Container>
               <Navbar.Brand> NavBar</Navbar.Brand>
               <Navbar.Toggle arie-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link>Home</Nav.Link>
+                  <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link>Test1</Nav.Link>
                 </Nav>
                 <Nav>

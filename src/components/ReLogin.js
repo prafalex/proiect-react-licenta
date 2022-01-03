@@ -5,13 +5,10 @@ import { Imageside } from './Image-side'
 import firebase from 'firebase/compat/app'
 
 export default function Login() {
-  //const emailRef = useRef()
   const passwordRef = useRef()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-
-  //user.reauthenticate(credentials)
 
   async function handleSubmit(e) {
     e.preventDefault()
