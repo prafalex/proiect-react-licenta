@@ -57,7 +57,6 @@ export default function Update() {
   return (
     <>
       <div
-      
         className="container d-flex align-items-center
     justify-content-center"
         style={{ minHeight: "100vh" }}
@@ -111,8 +110,6 @@ export default function Update() {
             </Card.Body>
           </Card>
           </div>
-          
-        
       </div>
     </>
   );

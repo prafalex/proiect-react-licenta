@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {Image} from 'react-bootstrap'
-import img from "./placeholder.gif"
+import img from "./utilities/placeholder.gif"
 
 export class Imageside extends Component{
     render(){
