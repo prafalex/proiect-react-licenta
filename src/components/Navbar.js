@@ -16,8 +16,20 @@ export default function NavBar() {
             <Navbar.Toggle arie-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/test">Test1</Nav.Link>
+                <Nav.Link href="/">
+                  <Link to="/" style={{ textDecoration: 'none', color:'grey' }}>
+                    Home
+                  </Link></Nav.Link>
+                <Nav.Link >
+                <Link to="/test1" style={{ textDecoration: 'none', color:'grey' }}>
+                    Test1
+                  </Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/404" style={{ textDecoration: 'none', color:'grey' }}>
+                    404
+                  </Link>
+                </Nav.Link>
               </Nav>
               <Nav>
                 <div className="d-flex gap-2">

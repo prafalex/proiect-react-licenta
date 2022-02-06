@@ -41,9 +41,13 @@ function App() {
             <Routes>
             <Route path="*" element={<NotFound/>} />
             <Route path="/relogin" element={
+              
                 <PrivateRoute> <Relogin />  </PrivateRoute>
               } />
-            <Route path="/" exact element={<Home/>} />
+            <Route path="/" exact element={
+          <Home/>    
+            } />
+
             <Route path="/dashboard" element={
                 <PrivateRoute> <Dashboard />  </PrivateRoute>
               } />
