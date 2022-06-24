@@ -25,6 +25,9 @@ export default function CarProject() {
   const approvedRef = useRef();
   const addressRef = useRef();
   const [randCar, setRC] = useState(false);
+  const [textCreate, setCreateText] = useState("Create Random Car");
+  const [attackText,setAttackText] = useState("Attack Car");
+  const [upgradeText,setUpgradeText] = useState("Upgrade Car");
   const [show, setModal] = useState(false);
   const [ckAttack, setCK] = useState();
   const [showMod, setModify] = useState(false);
@@ -46,6 +49,7 @@ export default function CarProject() {
       setRC(false);
     } catch (error) {
       console.log(error);
+      setCreateText("Create Random Car");
       setError(
         "failed to create a car, maybe this account already has a car generated"
       );
@@ -333,20 +337,28 @@ export default function CarProject() {
                     Currently the account selected is {account}
                   </Card.Text>
                   <Card.Text>Cars in garage: {carsNo}</Card.Text>
-                  {!randCar  &&
-                  <Button
-                    variant="outline-danger"
-                    onClick={async () => {
-                      await getCarsDetail();
-                    }}
-                  >
-                    Show Cars
-                  </Button>
-                  }
-                  
+                  {!randCar && (
+                    <Button
+                      variant="outline-danger"
+                      onClick={async () => {
+                        await getCarsDetail();
+                      }}
+                    >
+                      Show Cars
+                    </Button>
+                  )}
+
                   {randCar && (
                     <div>
-                      <Form onSubmit={carCreate}>
+                      <Form
+                        onSubmit={async (event) => {
+                          event.preventDefault();
+                          setCreateText("Creating car...");
+                          await carCreate(event);
+                          getCarsDetail();
+                          setCreateText("Create Random Car");
+                        }}
+                      >
                         <Form.Group id="text">
                           <Form.Label>Car Name</Form.Label>
                           <Form.Control
@@ -357,7 +369,7 @@ export default function CarProject() {
                           />
                         </Form.Group>
                         <Button className="w-50 mt-2" type="submit">
-                          Create Random Car
+                          {textCreate}
                         </Button>
                       </Form>
                     </div>
@@ -592,10 +604,10 @@ export default function CarProject() {
                                 setTransferState(false);
                               });
                               getCarsDetail();
-                              if(carsNo==1){
-                                    setShow(true);
-                                    setRC(true);
-                                  }
+                              if (carsNo == 1) {
+                                setShow(true);
+                                setRC(true);
+                              }
                               setTransferState(false);
                               setTransfer(false);
                             }}
@@ -730,8 +742,9 @@ export default function CarProject() {
                               {activeRating > 5 && (
                                 <Form
                                   onSubmit={async (event) => {
-                                    setId(car.id);
                                     event.preventDefault();
+                                    setId(car.id);
+                                    setModState(true);
                                     await modifyVin(activeId).on(
                                       "error",
                                       function (error) {
@@ -739,6 +752,7 @@ export default function CarProject() {
                                       }
                                     );
                                     getCarsDetail();
+                                    setModState(false);
                                     setModify(false);
                                   }}
                                   className="mt-3"
@@ -779,10 +793,17 @@ export default function CarProject() {
                               left: 205,
                             }}
                             onClick={async () => {
-                              await carRace(car.id);
+                              setAttackText("Attacking car...");
+                              await carRace(car.id).on(
+                                "error",
+                                function (error) {
+                                  setAttackText("Attack Car");
+                                }
+                              );
+                              setAttackText("Attack Car");
                             }}
                           >
-                            Attack Car
+                            {attackText}
                           </Button>
                           <Button
                             variant="danger"
@@ -850,10 +871,17 @@ export default function CarProject() {
                             left: 50,
                           }}
                           onClick={async () => {
-                            upgradeCar(car.id);
+                            setUpgradeText("Upgrading car...");
+                              await upgradeCar(car.id).on(
+                                "error",
+                                function (error) {
+                                  setUpgradeText("Upgrade Car");
+                                }
+                              );
+                              setUpgradeText("Upgrade Car");
                           }}
                         >
-                          Upgrade car
+                          {upgradeText}
                         </Button>
                       </div>
                     </Card.Body>
