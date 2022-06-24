@@ -316,7 +316,7 @@ export default function CarProject() {
         CRYPTO CARS NFT
       </h1>
 
-      {(ShowState || carsNo==0) && (
+      {(ShowState) && (
         <div
           style={{
             display: "flex",
@@ -344,7 +344,7 @@ export default function CarProject() {
                   >
                     Show Cars
                   </Button>
-                  {(randCar || carsNo==0) && (
+                  {(randCar) && (
                     <div>
                       <Form onSubmit={carCreate}>
                         <Form.Group id="text">
@@ -378,7 +378,7 @@ export default function CarProject() {
         </div>
       )}
 
-      {(!ShowState || carsNo>0) && (
+      {(!ShowState) && (
         <>
         <h4
         style={{
