@@ -6,12 +6,12 @@ import SignUp from "./SignUp";
 import Dashboard from "./Dashboard"
 import Login from "./Login"
 import ResetPassword from "./ResetPassword"
+import Test from "./Test"
 import Home from "./Home"
 import Update from "./Update"
 import Relogin from "./ReLogin"
 import back from "./utilities/back.jpg"
 import NotFound from "./NotFound"
-//import Web3 from "web3"
 
 var backGround = {
   backgroundImage: `url(${back})`
@@ -29,47 +29,19 @@ function Notlogin({children}){
 
 }
 
-
-
 function App() {
-
   return (
-    
-    <div style={backGround} className="vh-100"> 
+    <div style={{backgroundImage: `url(${back})`, minHeight:'100vh'
+  }} > 
         <Router>
           <AuthProvider>
             <Routes>
             <Route path="*" element={<NotFound/>} />
-            <Route path="/relogin" element={
-              
-                <PrivateRoute> <Relogin />  </PrivateRoute>
-              } />
-            <Route path="/" exact element={
-          <Home/>    
-            } />
-
-            <Route path="/dashboard" element={
-                <PrivateRoute> <Dashboard />  </PrivateRoute>
-              } />
-              <Route path="/profile-updating" element={
-                <PrivateRoute> <Update />  </PrivateRoute>
-              } />
-              <Route path="/signup" element={
-                <Notlogin><SignUp/> </Notlogin>
-              } />
-              <Route path="/login" element={
-                <Notlogin><Login/> </Notlogin>
-              } />
-              <Route path="/password-reset" element={<ResetPassword/>} />
+              <Route path="/" element={<Test/>} />
             </Routes>
           </AuthProvider>
          </Router>
       </div>
-    
-
-   
-    
-    
   );
 }
 
