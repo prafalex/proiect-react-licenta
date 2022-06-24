@@ -8,7 +8,7 @@ import axios from "axios";
 
 let selectedAccount;
 let carsContract;
-let contractAddress = "0xac38cA2E227c86540C8F16e1d939A0d508deE7d7";
+let contractAddress = "0x2f1a675061931C4501C407d1b78189DD2Ba4b3Ea";
 // de implementat event listening + interface update
 
 export default function CarProject() {
@@ -29,7 +29,7 @@ export default function CarProject() {
   const [ckAttack, setCK] = useState();
   const [showMod, setModify] = useState(false);
   const [showTransfer, setTransfer] = useState(false);
-  const [transferState,setTransferState] = useState(false);
+  const [transferState, setTransferState] = useState(false);
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
   const [activeId, setId] = useState();
@@ -52,7 +52,7 @@ export default function CarProject() {
     }
   }
 
- // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   function convertTime(time) {
     var dt = new Date(moment.unix(time)._d);
@@ -111,34 +111,31 @@ export default function CarProject() {
       });
   }
 
-  function carTransfer(from,to,id_car){
+  function carTransfer(from, to, id_car) {
     console.log("initiating transfer");
     return carsContract.methods
-    .transferFrom(from, to,id_car)
-    .send({ from: account })
-    .on("receipt", function (receipt) {
-      console.log("transfer done");
-    })
-    .on("error", function (error) {
-      console.log(error);
-    });
+      .transferFrom(from, to, id_car)
+      .send({ from: account })
+      .on("receipt", function (receipt) {
+        console.log("transfer done");
+      })
+      .on("error", function (error) {
+        console.log(error);
+      });
   }
 
-  function approveTransfer(approved,id_car){
+  function approveTransfer(approved, id_car) {
     console.log("initiating approving");
     return carsContract.methods
-    .approve(approved,id_car)
-    .send({ from: account })
-    .on("receipt", function (receipt) {
-      console.log("approve done");
-    })
-    .on("error", function (error) {
-      console.log(error);
-    });
+      .approve(approved, id_car)
+      .send({ from: account })
+      .on("receipt", function (receipt) {
+        console.log("approve done");
+      })
+      .on("error", function (error) {
+        console.log(error);
+      });
   }
-
-
-
 
   function carRace(id) {
     console.log("racing 2 cars");
@@ -209,11 +206,11 @@ export default function CarProject() {
     setMyCars([]);
     setCarsShow([]);
     carsContract.methods
-              .balanceOf(selectedAccount)
-              .call()
-              .then((a) => {
-                setCarsNo(a) 
-              });
+      .balanceOf(selectedAccount)
+      .call()
+      .then((a) => {
+        setCarsNo(a);
+      });
     getCarsByOwner().then((result) => {
       for (const i of Object.entries(result)) {
         const id_car = i[1];
@@ -316,7 +313,7 @@ export default function CarProject() {
         CRYPTO CARS NFT
       </h1>
 
-      {(ShowState) && (
+      {ShowState && (
         <div
           style={{
             display: "flex",
@@ -336,6 +333,7 @@ export default function CarProject() {
                     Currently the account selected is {account}
                   </Card.Text>
                   <Card.Text>Cars in garage: {carsNo}</Card.Text>
+                  {!randCar  &&
                   <Button
                     variant="outline-danger"
                     onClick={async () => {
@@ -344,7 +342,9 @@ export default function CarProject() {
                   >
                     Show Cars
                   </Button>
-                  {(randCar) && (
+                  }
+                  
+                  {randCar && (
                     <div>
                       <Form onSubmit={carCreate}>
                         <Form.Group id="text">
@@ -378,470 +378,490 @@ export default function CarProject() {
         </div>
       )}
 
-      {(!ShowState) && (
+      {!ShowState && (
         <>
-        <h4
-        style={{
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        Current account: {account}
-      </h4>
-        <div>
-          <Container>
-            {carstoshow.map((car) => (
-              <Row
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Card
-                  bg={"dark"}
-                  text={"light"}
-                  className="mt-3"
-                  style={{ width: 500, height: 500 }}
+          <h4
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Current account: {account}
+          </h4>
+          <div>
+            <Container>
+              {carstoshow.map((car) => (
+                <Row
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <Card.Header>Crypto Cars NFT Garage</Card.Header>
-                  <Card.Body>
-                    <Card.Title className="mb-5">
-                      {car.name.toUpperCase()}
-                    </Card.Title>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 90,
-                        left: 15,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      Rating: {car.rating}
-                    </h1>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 90,
-                        left: 150,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      Car ID: {car.id}
-                    </h1>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 115,
-                        left: 150,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      Losses: {car.losses}
-                    </h1>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 115,
-                        left: 15,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      VIN: {car.vin}
-                    </h1>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 140,
-                        left: 150,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      Pit Time: {convertTime(car.pitTime)}
-                    </h1>
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 140,
-                        left: 15,
-                        fontSize: "100%",
-                        color: "white",
-                      }}
-                    >
-                      Victories: {car.win}
-                    </h1>
-                    <img
-                      style={{
-                        width: 400,
-                        top: 170,
-                        left: 50,
-                        position: "absolute",
-                      }}
-                      src={`${process.env.PUBLIC_URL}/backgrounds/${
-                        (car.vin[1] + car.vin[2]) % 3
-                      }.png`}
-                      alt=""
-                    />
-                    <img
-                      style={{
-                        position: "absolute",
-                        top: 170,
-                        left: 70,
-                        width: 350,
-                      }}
-                      src={`${process.env.PUBLIC_URL}/carvariants/${
-                        (car.vin[0] + car.vin[1]) % 9
-                      }.png`}
-                      alt=""
-                    />
-                    <img
-                      style={{
-                        width: 65,
-                        top: 180,
-                        left: 90,
-                        position: "absolute",
-                      }}
-                      src={`${process.env.PUBLIC_URL}/logos/${
-                        car.vin[6] % 9
-                      }.png`}
-                      alt=""
-                    />
-                    <img
-                      style={{
-                        width: 65,
-                        top: 180,
-                        left: 220,
-                        position: "absolute",
-                      }}
-                      src={`${process.env.PUBLIC_URL}/logos/${
-                        car.vin[3] % 9
-                      }.png`}
-                      alt=""
-                    />
-                    <img
-                      style={{
-                        width: 65,
-                        top: 180,
-                        left: 330,
-                        position: "absolute",
-                      }}
-                      src={`${process.env.PUBLIC_URL}/logos/${
-                        car.vin[4] % 9
-                      }.png`}
-                      alt=""
-                    />
-                    <h1
-                      style={{
-                        position: "absolute",
-                        top: 375,
-                        left: 195,
-                        fontSize: "120%",
-                        color: "black",
-                      }}
-                    >
-                      {car.name.toUpperCase()}
-                    </h1>
-                    <Button
-                      variant="outline-success"
-                      style={{
-                        position: "absolute",
-                        top: 50,
-                        right: 30,
-                        width: 130,
-                      }}
-                      onClick={ async () => {
-                        await setId(car.id)
-                        setTransfer(true);
-                      }}
-                    >
-                      Transfer Menu
-                    </Button>
-                    <Modal
-                      show={showTransfer}
-                      onHide={() => setTransfer(false)}
-                      backdrop="static"
-                      keyboard={false}
-                      aria-labelledby="contained-modal-title-vcenter"
-                      centered
-                    >
-                      <Modal.Header closeButton>
-                        <Modal.Title>
-                          {!transferState && <>Transfer Menu</>}
-                          {transferState && <>Transfer in progress...</>}
-                        </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form
-                          onSubmit={async (event) => {
-                            event.preventDefault();
-                            setTransferState(true);
-                            //here to modify 
-                            await carTransfer(
-                              account,
-                              addressRef.current.value,activeId
-                            ).on("error",function(error){
-                              setTransferState(false);
-                            });
-                            getCarsDetail();
-                            setTransferState(false);
-                            setTransfer(false);
-                          }}
-                        >
-                          <Form.Group id="text">
-                            <Form.Label>
-                              Enter the account for transfer
-                            </Form.Label>
-                            <Form.Control
-                              className="w-50 mt-1"
-                              type="text"
-                              ref={addressRef}
-                              required
-                            />
-                          </Form.Group>
-                          <Button className="w-50 mt-2" type="submit" variant="success">
-                            Transfer
-                          </Button>
-                        </Form>
-                        <Form
-                          onSubmit={async (event) => {
-                            event.preventDefault();
-                            setTransferState(true);
-                            await approveTransfer(approvedRef.current.value,activeId)
-                            .on("error",function(error){
-                              setTransferState(false);
-                            });
-                            getCarsDetail();
-                            setTransfer(false);
-                            setTransferState(false);
-                            setTransfer(false);
-                          }}
-                          className="mt-3"
-                        >
-                          <Form.Group id="text">
-                            <Form.Label>Enter account address to approve</Form.Label>
-                            <Form.Control
-                              className="w-50 mt-1"
-                              type="text"
-                              ref={approvedRef}
-                              required
-                            />
-                          </Form.Group>
-                          <Button className="w-50 mt-2" type="submit" variant="success">
-                            Approve
-                          </Button>
-                        </Form>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="secondary"
-                          onClick={() => setTransfer(false)}
-                        >
-                          Close
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
-                    {car.rating > 2 && (
-                      <>
-                        <Button
-                          variant="outline-primary"
-                          style={{
-                            position: "absolute",
-                            top: 95,
-                            right: 30,
-                            width: 130,
-                          }}
-                          onClick={async () => {
-                            await setId(car.id);
-                            await setRating(car.rating);
-                            setModify(true);
-                          }}
-                        >
-                          Modify Menu
-                        </Button>
-                        <Modal
-                          show={showMod}
-                          onHide={() => setModify(false)}
-                          backdrop="static"
-                          keyboard={false}
-                          aria-labelledby="contained-modal-title-vcenter"
-                          centered
-                        >
-                          <Modal.Header closeButton>
-                            <Modal.Title>
-                              {!modifyState && <>Modify Menu</>}
-                              {modifyState && <>Modifying in progress...</>}
-                            </Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <Form
-                              onSubmit={async (event) => {
-                                event.preventDefault();
-                                setId(car.id);
-                                setModState(true);
-                                await modifyName(
-                                  activeId,
-                                  newNameRef.current.value
-                                ).on("error",function(error){
-                                  setModState(false);
-                                });
-                                getCarsDetail();
-                                setModState(false);
-                                setModify(false);
-                              }}
-                            >
-                              <Form.Group id="text">
-                                <Form.Label>Enter new car name</Form.Label>
-                                <Form.Control
-                                  className="w-50 mt-1"
-                                  type="text"
-                                  ref={newNameRef}
-                                  required
-                                />
-                              </Form.Group>
-                              <Button className="w-50 mt-2" type="submit">
-                                Modify Name
-                              </Button>
-                            </Form>
-                            {activeRating > 5 && (
-                              <Form
-                                onSubmit={async (event) => {
-                                  setId(car.id);
-                                  event.preventDefault();
-                                  await modifyVin(activeId).on("error",function(error){
-                                    setModState(false);
-                                  });
-                                  getCarsDetail();
-                                  setModify(false);
-                                }}
-                                className="mt-3"
-                              >
-                                <Form.Group id="text">
-                                  <Form.Label>Enter new vin</Form.Label>
-                                  <Form.Control
-                                    className="w-50 mt-1"
-                                    type="text"
-                                    ref={newVinRef}
-                                    required
-                                  />
-                                </Form.Group>
-                                <Button className="w-50 mt-2" type="submit">
-                                  Modify Vin
-                                </Button>
-                              </Form>
-                            )}
-                          </Modal.Body>
-                          <Modal.Footer>
-                            <Button
-                              variant="secondary"
-                              onClick={() => setModify(false)}
-                            >
-                              Close
-                            </Button>
-                          </Modal.Footer>
-                        </Modal>
-                      </>
-                    )}
-                    {convertTime(car.pitTime) == 0 && (
-                      <>
-                        <Button
-                          variant="danger"
-                          style={{
-                            position: "absolute",
-                            top: 440,
-                            left: 205,
-                          }}
-                          onClick={async () => {
-                            await carRace(car.id);
-                          }}
-                        >
-                          Attack Car
-                        </Button>
-                        <Button
-                          variant="danger"
-                          style={{
-                            position: "absolute",
-                            top: 440,
-                            left: 340,
-                          }}
-                          onClick={async () => {
-                            await setId(car.id);
-                            await CryptoKitties();
-                            setModal(true);
-                          }}
-                        >
-                          Attack Kitty
-                        </Button>
-                      </>
-                    )}
-                    {ckAttack && (
+                  <Card
+                    bg={"dark"}
+                    text={"light"}
+                    className="mt-3"
+                    style={{ width: 500, height: 500 }}
+                  >
+                    <Card.Header>Crypto Cars NFT Garage</Card.Header>
+                    <Card.Body>
+                      <Card.Title className="mb-5">
+                        {car.name.toUpperCase()}
+                      </Card.Title>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 90,
+                          left: 15,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        Rating: {car.rating}
+                      </h1>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 90,
+                          left: 150,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        Car ID: {car.id}
+                      </h1>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 115,
+                          left: 150,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        Losses: {car.losses}
+                      </h1>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 115,
+                          left: 15,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        VIN: {car.vin}
+                      </h1>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 140,
+                          left: 150,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        Pit Time: {convertTime(car.pitTime)}
+                      </h1>
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 140,
+                          left: 15,
+                          fontSize: "100%",
+                          color: "white",
+                        }}
+                      >
+                        Victories: {car.win}
+                      </h1>
+                      <img
+                        style={{
+                          width: 400,
+                          top: 170,
+                          left: 50,
+                          position: "absolute",
+                        }}
+                        src={`${process.env.PUBLIC_URL}/backgrounds/${
+                          (car.vin[1] + car.vin[2]) % 3
+                        }.png`}
+                        alt=""
+                      />
+                      <img
+                        style={{
+                          position: "absolute",
+                          top: 170,
+                          left: 70,
+                          width: 350,
+                        }}
+                        src={`${process.env.PUBLIC_URL}/carvariants/${
+                          (car.vin[0] + car.vin[1]) % 9
+                        }.png`}
+                        alt=""
+                      />
+                      <img
+                        style={{
+                          width: 65,
+                          top: 180,
+                          left: 90,
+                          position: "absolute",
+                        }}
+                        src={`${process.env.PUBLIC_URL}/logos/${
+                          car.vin[6] % 9
+                        }.png`}
+                        alt=""
+                      />
+                      <img
+                        style={{
+                          width: 65,
+                          top: 180,
+                          left: 220,
+                          position: "absolute",
+                        }}
+                        src={`${process.env.PUBLIC_URL}/logos/${
+                          car.vin[3] % 9
+                        }.png`}
+                        alt=""
+                      />
+                      <img
+                        style={{
+                          width: 65,
+                          top: 180,
+                          left: 330,
+                          position: "absolute",
+                        }}
+                        src={`${process.env.PUBLIC_URL}/logos/${
+                          car.vin[4] % 9
+                        }.png`}
+                        alt=""
+                      />
+                      <h1
+                        style={{
+                          position: "absolute",
+                          top: 375,
+                          left: 195,
+                          fontSize: "120%",
+                          color: "black",
+                        }}
+                      >
+                        {car.name.toUpperCase()}
+                      </h1>
+                      <Button
+                        variant="outline-success"
+                        style={{
+                          position: "absolute",
+                          top: 50,
+                          right: 30,
+                          width: 130,
+                        }}
+                        onClick={async () => {
+                          await setId(car.id);
+                          setTransfer(true);
+                        }}
+                      >
+                        Transfer Menu
+                      </Button>
                       <Modal
-                        show={show}
-                        onHide={handleClose}
+                        show={showTransfer}
+                        onHide={() => setTransfer(false)}
                         backdrop="static"
                         keyboard={false}
                         aria-labelledby="contained-modal-title-vcenter"
                         centered
                       >
                         <Modal.Header closeButton>
-                          <Modal.Title>{attackCK}</Modal.Title>
+                          <Modal.Title>
+                            {!transferState && <>Transfer Menu</>}
+                            {transferState && <>Transfer in progress...</>}
+                          </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          <img style={{}} src={ckAttack.image_url} alt="" />
-                          <h1
-                            style={{
-                              fontSize: "140%",
-                              color: "black",
+                          <Form
+                            onSubmit={async (event) => {
+                              event.preventDefault();
+                              setTransferState(true);
+                              //here to modify
+                              await carTransfer(
+                                account,
+                                addressRef.current.value,
+                                activeId
+                              ).on("error", function (error) {
+                                setTransferState(false);
+                              });
+                              getCarsDetail();
+                              if(carsNo==1){
+                                    setShow(true);
+                                    setRC(true);
+                                  }
+                              setTransferState(false);
+                              setTransfer(false);
                             }}
                           >
-                            {ckAttack.name}
-                          </h1>
+                            <Form.Group id="text">
+                              <Form.Label>
+                                Enter the account for transfer
+                              </Form.Label>
+                              <Form.Control
+                                className="w-50 mt-1"
+                                type="text"
+                                ref={addressRef}
+                                required
+                              />
+                            </Form.Group>
+                            <Button
+                              className="w-50 mt-2"
+                              type="submit"
+                              variant="success"
+                            >
+                              Transfer
+                            </Button>
+                          </Form>
+                          <Form
+                            onSubmit={async (event) => {
+                              event.preventDefault();
+                              setTransferState(true);
+                              await approveTransfer(
+                                approvedRef.current.value,
+                                activeId
+                              ).on("error", function (error) {
+                                setTransferState(false);
+                              });
+                              getCarsDetail();
+                              setTransfer(false);
+                              setTransferState(false);
+                              setTransfer(false);
+                            }}
+                            className="mt-3"
+                          >
+                            <Form.Group id="text">
+                              <Form.Label>
+                                Enter account address to approve
+                              </Form.Label>
+                              <Form.Control
+                                className="w-50 mt-1"
+                                type="text"
+                                ref={approvedRef}
+                                required
+                              />
+                            </Form.Group>
+                            <Button
+                              className="w-50 mt-2"
+                              type="submit"
+                              variant="success"
+                            >
+                              Approve
+                            </Button>
+                          </Form>
                         </Modal.Body>
                         <Modal.Footer>
-                          <Button variant="secondary" onClick={handleClose}>
-                            Close
-                          </Button>
                           <Button
-                            variant="danger"
-                            onClick={async () => {
-                              setAttackCK("Attacking a Kitty...");
-                              await ckOvertake(activeId, ckAttack.id);
-                              setAttackCK("CryptoKitty Attack");
-                            }}
+                            variant="secondary"
+                            onClick={() => setTransfer(false)}
                           >
-                            Attack {ckAttack.id} - {activeId}
+                            Close
                           </Button>
                         </Modal.Footer>
                       </Modal>
-                    )}
-                    <div>
-                      <Button
-                        variant="success"
-                        style={{
-                          position: "absolute",
-                          top: 440,
-                          left: 50,
-                        }}
-                        onClick={async () => {
-                          upgradeCar(car.id);
-                        }}
-                      >
-                        Upgrade car
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Row>
-            ))}
-          </Container>
-        </div>
+                      {car.rating > 2 && (
+                        <>
+                          <Button
+                            variant="outline-primary"
+                            style={{
+                              position: "absolute",
+                              top: 95,
+                              right: 30,
+                              width: 130,
+                            }}
+                            onClick={async () => {
+                              await setId(car.id);
+                              await setRating(car.rating);
+                              setModify(true);
+                            }}
+                          >
+                            Modify Menu
+                          </Button>
+                          <Modal
+                            show={showMod}
+                            onHide={() => setModify(false)}
+                            backdrop="static"
+                            keyboard={false}
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>
+                                {!modifyState && <>Modify Menu</>}
+                                {modifyState && <>Modifying in progress...</>}
+                              </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Form
+                                onSubmit={async (event) => {
+                                  event.preventDefault();
+                                  setId(car.id);
+                                  setModState(true);
+                                  await modifyName(
+                                    activeId,
+                                    newNameRef.current.value
+                                  ).on("error", function (error) {
+                                    setModState(false);
+                                  });
+                                  getCarsDetail();
+                                  setModState(false);
+                                  setModify(false);
+                                }}
+                              >
+                                <Form.Group id="text">
+                                  <Form.Label>Enter new car name</Form.Label>
+                                  <Form.Control
+                                    className="w-50 mt-1"
+                                    type="text"
+                                    ref={newNameRef}
+                                    required
+                                  />
+                                </Form.Group>
+                                <Button className="w-50 mt-2" type="submit">
+                                  Modify Name
+                                </Button>
+                              </Form>
+                              {activeRating > 5 && (
+                                <Form
+                                  onSubmit={async (event) => {
+                                    setId(car.id);
+                                    event.preventDefault();
+                                    await modifyVin(activeId).on(
+                                      "error",
+                                      function (error) {
+                                        setModState(false);
+                                      }
+                                    );
+                                    getCarsDetail();
+                                    setModify(false);
+                                  }}
+                                  className="mt-3"
+                                >
+                                  <Form.Group id="text">
+                                    <Form.Label>Enter new vin</Form.Label>
+                                    <Form.Control
+                                      className="w-50 mt-1"
+                                      type="text"
+                                      ref={newVinRef}
+                                      required
+                                    />
+                                  </Form.Group>
+                                  <Button className="w-50 mt-2" type="submit">
+                                    Modify Vin
+                                  </Button>
+                                </Form>
+                              )}
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button
+                                variant="secondary"
+                                onClick={() => setModify(false)}
+                              >
+                                Close
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
+                        </>
+                      )}
+                      {convertTime(car.pitTime) == 0 && (
+                        <>
+                          <Button
+                            variant="danger"
+                            style={{
+                              position: "absolute",
+                              top: 440,
+                              left: 205,
+                            }}
+                            onClick={async () => {
+                              await carRace(car.id);
+                            }}
+                          >
+                            Attack Car
+                          </Button>
+                          <Button
+                            variant="danger"
+                            style={{
+                              position: "absolute",
+                              top: 440,
+                              left: 340,
+                            }}
+                            onClick={async () => {
+                              await setId(car.id);
+                              await CryptoKitties();
+                              setModal(true);
+                            }}
+                          >
+                            Attack Kitty
+                          </Button>
+                        </>
+                      )}
+                      {ckAttack && (
+                        <Modal
+                          show={show}
+                          onHide={handleClose}
+                          backdrop="static"
+                          keyboard={false}
+                          aria-labelledby="contained-modal-title-vcenter"
+                          centered
+                        >
+                          <Modal.Header closeButton>
+                            <Modal.Title>{attackCK}</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <img style={{}} src={ckAttack.image_url} alt="" />
+                            <h1
+                              style={{
+                                fontSize: "140%",
+                                color: "black",
+                              }}
+                            >
+                              {ckAttack.name}
+                            </h1>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Close
+                            </Button>
+                            <Button
+                              variant="danger"
+                              onClick={async () => {
+                                setAttackCK("Attacking a Kitty...");
+                                await ckOvertake(activeId, ckAttack.id);
+                                setAttackCK("CryptoKitty Attack");
+                              }}
+                            >
+                              Attack {ckAttack.id} - {activeId}
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+                      )}
+                      <div>
+                        <Button
+                          variant="success"
+                          style={{
+                            position: "absolute",
+                            top: 440,
+                            left: 50,
+                          }}
+                          onClick={async () => {
+                            upgradeCar(car.id);
+                          }}
+                        >
+                          Upgrade car
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Row>
+              ))}
+            </Container>
+          </div>
         </>
       )}
     </>
